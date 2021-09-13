@@ -1,13 +1,16 @@
 version: "3"
 
 services:
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
   mysql-01:
     image: mysql:5.7
     volumes:
       - ./data:/var/lib/mysql
       - ./schema:/docker-entrypoint-initdb.d:ro
       - ./charset.cnf:/etc/mysql/conf.d/charset.cnf
-    restart: always
     ports:
       - "3306:3306"
     environment:
@@ -21,7 +24,6 @@ services:
       - ./data-test:/var/lib/mysql
       - ./schema:/docker-entrypoint-initdb.d:ro
       - ./charset.cnf:/etc/mysql/conf.d/charset.cnf
-    restart: always
     ports:
       - "3307:3306"
     environment:
